@@ -1,0 +1,387 @@
+
+<?php
+/*include 'db_connect.php';
+
+// Função para buscar todos os clientes
+function getClients($conn) {
+    $sql = "SELECT * FROM CLIENTE";
+    $result = $conn->query($sql);
+    return $result;
+}
+
+// Função para adicionar um novo cliente
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addClient"])) {
+    $nome = $_POST["nome"];
+    $endereco = $_POST["endereco"];
+    $telefone = $_POST["telefone"];
+    
+    $sql = "INSERT INTO CLIENTE (NOME, ENDEREÇO, TELEFONE) VALUES ('$nome', '$endereco', '$telefone')";
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Novo cliente adicionado com sucesso!');</script>";
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Função para deletar um cliente
+if (isset($_GET["delete"]) && isset($_GET["type"]) && $_GET["type"] == 'cliente') {
+    $id = $_GET["delete"];
+    $sql = "DELETE FROM CLIENTE WHERE CÓD_CLIENTE=$id";
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Cliente deletado com sucesso!');</script>";
+    } else {
+        echo "Erro: " . $conn->error;
+    }
+}
+
+// Função para buscar todos os livros no estoque
+function getEstoque($conn) {
+    $sql = "SELECT * FROM ESTOQUE";
+    $result = $conn->query($sql);
+    return $result;
+}
+
+// Função para adicionar um novo livro ao estoque
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addEstoque"])) {
+    $cod = $_POST["cód_livro"];
+    $nome = $_POST["nome_livro"];
+    $genero = $_POST["gênero"];
+    $autor = $_POST["autor"];
+    $quantidade = $_POST["quantidade"];
+    
+    $sql = "INSERT INTO ESTOQUE (CÓD_LIVRO, NOME_LIVRO, GÊNERO, AUTOR, QUANTIDADE) VALUES ('$cod', '$nome', '$genero', '$autor', '$quantidade')";
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Novo livro adicionado ao estoque com sucesso!');</script>";
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Função para deletar um livro do estoque
+if (isset($_GET["delete"]) && isset($_GET["type"]) && $_GET["type"] == 'estoque') {
+    $id = $_GET["delete"];
+    $sql = "DELETE FROM ESTOQUE WHERE CÓD_LIVRO=$id";
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Livro deletado com sucesso!');</script>";
+    } else {
+        echo "Erro: " . $conn->error;
+    }
+}
+
+// Função para buscar todos os registros de aluguel
+function getAluguel($conn) {
+    $sql = "SELECT * FROM ALUGUEL";
+    $result = $conn->query($sql);
+    return $result;
+}
+
+// Função para adicionar um novo registro de aluguel
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["addAluguel"])) {
+    $cod_emp = $_POST["cód_emp"];
+    $qtd = $_POST["qtd"];
+    $cod_livro = $_POST["cód_livro"];
+    $cod_cliente = $_POST["cód_cliente"];
+    
+    $sql = "INSERT INTO ALUGUEL (CÓD_EMPRESTIMOS, QUANTIDADE, CÓD_LIVRO, CÓD_CLIENTE) VALUES ('$cod_emp', '$qtd', '$cod_livro', '$cod_cliente')";
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Novo aluguel adicionado com sucesso!');</script>";
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Função para deletar um registro de aluguel
+if (isset($_GET["delete"]) && isset($_GET["type"]) && $_GET["type"] == 'aluguel') {
+    $id = $_GET["delete"];
+    $sql = "DELETE FROM ALUGUEL WHERE CÓD_EMPRESTIMOS=$id";
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Registro de aluguel deletado com sucesso!');</script>";
+    } else {
+        echo "Erro: " . $conn->error;
+    }
+}
+?> */
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <style>
+       /*8B4513*/
+       
+       body {
+            font-family: Baskerville;
+            background: radial-gradient(ellipse at top, #964b00, transparent),
+            radial-gradient(ellipse at bottom, #b87333, transparent),
+            radial-gradient(circle at 10%, #be7f37, transparent);
+            padding: none;
+            margin-left: 90px;
+            margin-right:	90px;
+            margin-bottom: 90px;
+            margin-top: 25px;
+
+        }
+
+        img{
+            text-align: center;
+            width: 30%;
+        }
+
+        h1, h2 {
+            color: #efded4;
+            font-size: 34px;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            border-bottom-right-radius: 40px;
+            border-bottom-left-radius: 40px;
+            padding: 20;
+            background-color:#DEB887; 
+        }
+
+        table, th, td {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            margin-bottom: 10px;
+            border: #462510;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            margin: 20px;
+           
+        }
+        th {
+            color: white;
+        }
+
+        th {
+            background-color:#CD853F; /*titulos das tabelas */
+            
+            
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        
+        }
+        tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            background-color: #DEB887;
+            padding: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-color: #A0522D;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 30px;
+            font-weight: bold;
+        
+        }
+
+        form input[type="text"], form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #8B4513;
+            border-radius: 4px;
+        }
+
+        form input[type="submit"] {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color:#CD853F;
+    
+        }
+
+        .tabela_1 th, .tabela_1 td, .tabela_2 th, .tabela_2 td, .tabela_3 th, .tabela_3 td {
+            text-align: center;
+            margin: 30px;
+
+        }
+
+        .adicionar_cliente, .adicionar_livro, .adicionar_aluguel {
+            max-width: 600px;
+            margin: auto;
+        }
+        a.link_deletar:link {
+            color:#2e9815;
+            text-decoration:none;
+        }
+        a.link_deletar:hover {
+            color:#065d11;
+            text-decoration:underline;
+        }
+        a.link_deletar:active {
+            color:#e41021;
+            text-decoration:underline;
+        }
+    </style>
+   
+</head>
+<body>
+
+<center>
+<img src='bibo.png'/> <br> <br>
+<br> <h1>Clientes</h1>
+    </center>
+    <table class='tabela_1'>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+        <?php
+        $result = getClients($conn);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>
+                    <td>{$row['CÓD_CLIENTE']}</td>
+                    <td>{$row['NOME']}</td>
+                    <td>{$row['ENDEREÇO']}</td>
+                    <td>{$row['TELEFONE']}</td>
+                    <td><a href='?delete={$row['CÓD_CLIENTE']}&type=cliente' class='link_deletar'>Deletar</a></td>
+                </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>Nenhum cliente encontrado</td></tr>";
+        }
+        ?>
+    </table>
+    <br>
+    <br>
+
+    <center>
+    <h2>Adicionar Cliente</h2>
+    </center>
+    <form method="POST" class='adicionar_cliente' action="">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required>
+        <input type="submit" name="addClient" value="Adicionar">
+    </form>
+    <br>
+    <br>
+    <center>
+    <h1>Estoque</h1>
+    </center>
+    <table class='tabela_2'>
+        <tr>
+            <th>Código do Livro</th>
+            <th>Nome do Livro</th>
+            <th>Gênero</th>
+            <th>Autor</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+        </tr>
+        <?php
+        $result = getEstoque($conn);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>
+                    <td>{$row['CÓD_LIVRO']}</td>
+                    <td>{$row['NOME_LIVRO']}</td>
+                    <td>{$row['GÊNERO']}</td>
+                    <td>{$row['AUTOR']}</td>
+                    <td>{$row['QUANTIDADE']}</td>
+                    <td><a href='?delete={$row['CÓD_LIVRO']}&type=estoque' class='link_deletar'>Deletar </a></td>
+                </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='6'>Nenhum livro encontrado</td></tr>";
+        }
+        ?>
+    </table>
+    <br>
+    <br>
+    <center>
+    <h2>Adicionar Livro ao Estoque</h2>
+    </center>
+    <form method="POST" class='adicionar_livro' action="">
+        <label for="cód_livro">Código do Livro:</label>
+        <input type="text" id="cód_livro" name="cód_livro" required>
+        <label for="nome_livro">Nome do Livro:</label>
+        <input type="text" id="nome_livro" name="nome_livro" required>
+        <label for="gênero">Gênero:</label>
+        <input type="text" id="gênero" name="gênero" required>
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" name="autor" required>
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade" name="quantidade" required>
+        <input type="submit" name="addEstoque" value="Adicionar">
+    </form>
+    <br>
+    <br>
+
+     <center>
+    <h1>Aluguéis </h1>
+    </center>
+    <table class='tabela_3'>
+        <tr>
+            <th>Código do Empréstimo</th>
+            <th>Quantidade</th>
+            <th>Código do Livro</th>
+            <th>Código do Cliente</th>
+            <th>Ações</th>
+        </tr>
+        <?php
+        $result = getAluguel($conn);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>
+                    <td>{$row['CÓD_EMPRESTIMOS']}</td>
+                    <td>{$row['QUANTIDADE']}</td>
+                    <td>{$row['CÓD_LIVRO']}</td>
+                    <td>{$row['CÓD_CLIENTE']}</td>
+                    <td><a href='?delete={$row['CÓD_EMPRESTIMOS']}&type=aluguel' class='link_deletar'>Deletar</a></td>
+                </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>Nenhum registro de aluguel encontrado</td></tr>";
+        }
+        ?>
+    </table>
+    <br>
+    <br>
+    <center>
+    <h2>Adicionar Aluguel</h2>
+    </center>
+    <form method="POST" class='adicionar_aluguel' action="">
+        <label for="cód_emp">Código do Empréstimo:</label>
+        <input type="text" id="cód_emp" name="cód_emp" required>
+        <label for="qtd">Quantidade:</label>
+        <input type="text" id="qtd" name="qtd" required>
+        <label for="cód_livro">Código do Livro:</label>
+        <input type="text" id="cód_livro" name="cód_livro" required>
+        <label for="cód_cliente">Código do Cliente:</label>
+        <input type="text" id="cód_cliente" name="cód_cliente" required>
+        <input type="submit" name="addAluguel" value="Adicionar">
+    </form>
+</body>
+</html>
